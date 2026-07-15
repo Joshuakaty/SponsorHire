@@ -1,0 +1,1182 @@
+2026-07-15 11:31:15,619 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 11:31:15,810 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 11:31:15,810 | INFO | Scheduler started
+2026-07-15 11:32:15,629 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:32:15 GMT)" (scheduled at 2026-07-15 11:32:15.619134+00:00)
+2026-07-15 11:32:15,631 | INFO | Collecting from The Muse...
+2026-07-15 11:32:16,923 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:32:18,980 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:32:18,984 | INFO | Collecting from Remotive...
+2026-07-15 11:32:20,345 | ERROR | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:33:15 GMT)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\scheduler.py", line 24, in collect_jobs
+    if save_job(db, job):
+       ~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\services\job_service.py", line 85, in save_job
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+[SQL: INSERT INTO jobs (title, company, location, salary, sponsorship, apply_url, slug) VALUES (%(title)s, %(company)s, %(location)s, %(salary)s, %(sponsorship)s, %(apply_url)s, %(slug)s) RETURNING jobs.id]
+[parameters: {'title': 'Remote Office Assistant', 'company': 'Coalition Technologies', 'location': 'Worldwide', 'salary': '$31,2k- $52k', 'sponsorship': False, 'apply_url': 'https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495', 'slug': 'remote-office-assistant-coalition-technologies-worldwide'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-07-15 11:33:15,627 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:34:15 GMT)" (scheduled at 2026-07-15 11:33:15.619134+00:00)
+2026-07-15 11:33:15,628 | INFO | Collecting from The Muse...
+2026-07-15 11:33:16,156 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:33:16,156 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:33:16,656 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:33:16,656 | INFO | Collecting from Remotive...
+2026-07-15 11:33:17,103 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:33:17,104 | INFO | Saved 0 new jobs.
+2026-07-15 11:33:17,104 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:34:15 GMT)" executed successfully
+2026-07-15 11:34:15,632 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:35:15 GMT)" (scheduled at 2026-07-15 11:34:15.619134+00:00)
+2026-07-15 11:34:15,632 | INFO | Collecting from The Muse...
+2026-07-15 11:34:16,181 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:34:16,181 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:34:18,373 | INFO | Collecting from Remotive...
+2026-07-15 11:34:19,433 | ERROR | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:35:15 GMT)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\scheduler.py", line 24, in collect_jobs
+    if save_job(db, job):
+       ~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\services\job_service.py", line 85, in save_job
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+[SQL: INSERT INTO jobs (title, company, location, salary, sponsorship, apply_url, slug) VALUES (%(title)s, %(company)s, %(location)s, %(salary)s, %(sponsorship)s, %(apply_url)s, %(slug)s) RETURNING jobs.id]
+[parameters: {'title': 'Remote Office Assistant', 'company': 'Coalition Technologies', 'location': 'Worldwide', 'salary': '$31,2k- $52k', 'sponsorship': False, 'apply_url': 'https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495', 'slug': 'remote-office-assistant-coalition-technologies-worldwide'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-07-15 11:35:15,631 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:36:15 GMT)" (scheduled at 2026-07-15 11:35:15.619134+00:00)
+2026-07-15 11:35:15,632 | INFO | Collecting from The Muse...
+2026-07-15 11:35:16,166 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:35:16,166 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:35:19,000 | INFO | Collecting from Remotive...
+2026-07-15 11:35:19,534 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:35:19,581 | INFO | Saved 0 new jobs.
+2026-07-15 11:35:19,582 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:36:15 GMT)" executed successfully
+2026-07-15 11:36:15,634 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:37:15 GMT)" (scheduled at 2026-07-15 11:36:15.619134+00:00)
+2026-07-15 11:36:15,635 | INFO | Collecting from The Muse...
+2026-07-15 11:36:16,147 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:36:16,147 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:36:16,580 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:36:16,580 | INFO | Collecting from Remotive...
+2026-07-15 11:36:17,292 | ERROR | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:37:15 GMT)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\scheduler.py", line 24, in collect_jobs
+    if save_job(db, job):
+       ~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\services\job_service.py", line 85, in save_job
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+[SQL: INSERT INTO jobs (title, company, location, salary, sponsorship, apply_url, slug) VALUES (%(title)s, %(company)s, %(location)s, %(salary)s, %(sponsorship)s, %(apply_url)s, %(slug)s) RETURNING jobs.id]
+[parameters: {'title': 'Remote Office Assistant', 'company': 'Coalition Technologies', 'location': 'Worldwide', 'salary': '$31,2k- $52k', 'sponsorship': False, 'apply_url': 'https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495', 'slug': 'remote-office-assistant-coalition-technologies-worldwide'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-07-15 11:37:15,625 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:38:15 GMT)" (scheduled at 2026-07-15 11:37:15.619134+00:00)
+2026-07-15 11:37:15,625 | INFO | Collecting from The Muse...
+2026-07-15 11:37:16,281 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:37:16,281 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:37:16,951 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:37:16,951 | INFO | Collecting from Remotive...
+2026-07-15 11:37:17,452 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:37:17,452 | INFO | Saved 0 new jobs.
+2026-07-15 11:37:17,452 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:38:15 GMT)" executed successfully
+2026-07-15 11:38:15,629 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:39:15 GMT)" (scheduled at 2026-07-15 11:38:15.619134+00:00)
+2026-07-15 11:38:15,629 | INFO | Collecting from The Muse...
+2026-07-15 11:38:16,148 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:38:16,148 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:38:16,721 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:38:16,721 | INFO | Collecting from Remotive...
+2026-07-15 11:38:17,776 | ERROR | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:39:15 GMT)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\scheduler.py", line 24, in collect_jobs
+    if save_job(db, job):
+       ~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\services\job_service.py", line 85, in save_job
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+[SQL: INSERT INTO jobs (title, company, location, salary, sponsorship, apply_url, slug) VALUES (%(title)s, %(company)s, %(location)s, %(salary)s, %(sponsorship)s, %(apply_url)s, %(slug)s) RETURNING jobs.id]
+[parameters: {'title': 'Remote Office Assistant', 'company': 'Coalition Technologies', 'location': 'Worldwide', 'salary': '$31,2k- $52k', 'sponsorship': False, 'apply_url': 'https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495', 'slug': 'remote-office-assistant-coalition-technologies-worldwide'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-07-15 11:39:15,629 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:40:15 GMT)" (scheduled at 2026-07-15 11:39:15.619134+00:00)
+2026-07-15 11:39:15,630 | INFO | Collecting from The Muse...
+2026-07-15 11:39:16,278 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:39:16,278 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:39:17,941 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:39:17,941 | INFO | Collecting from Remotive...
+2026-07-15 11:39:18,399 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:39:18,399 | INFO | Saved 0 new jobs.
+2026-07-15 11:39:18,399 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:40:15 GMT)" executed successfully
+2026-07-15 11:40:15,628 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:41:15 GMT)" (scheduled at 2026-07-15 11:40:15.619134+00:00)
+2026-07-15 11:40:15,629 | INFO | Collecting from The Muse...
+2026-07-15 11:40:16,878 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:40:18,536 | INFO | Collecting from Remotive...
+2026-07-15 11:40:19,597 | ERROR | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:41:15 GMT)" raised an exception
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\apscheduler\executors\base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\scheduler.py", line 24, in collect_jobs
+    if save_job(db, job):
+       ~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\app\services\job_service.py", line 85, in save_job
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DEEGO\Desktop\SponsorHire\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "ix_jobs_slug"
+DETAIL:  Key (slug)=(remote-office-assistant-coalition-technologies-worldwide) already exists.
+
+[SQL: INSERT INTO jobs (title, company, location, salary, sponsorship, apply_url, slug) VALUES (%(title)s, %(company)s, %(location)s, %(salary)s, %(sponsorship)s, %(apply_url)s, %(slug)s) RETURNING jobs.id]
+[parameters: {'title': 'Remote Office Assistant', 'company': 'Coalition Technologies', 'location': 'Worldwide', 'salary': '$31,2k- $52k', 'sponsorship': False, 'apply_url': 'https://remotive.com/remote-jobs/marketing/remote-office-assistant-1680495', 'slug': 'remote-office-assistant-coalition-technologies-worldwide'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-07-15 11:41:15,630 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:42:15 GMT)" (scheduled at 2026-07-15 11:41:15.619134+00:00)
+2026-07-15 11:41:15,630 | INFO | Collecting from The Muse...
+2026-07-15 11:41:16,892 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:41:18,274 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:41:18,275 | INFO | Collecting from Remotive...
+2026-07-15 11:41:18,775 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:41:18,834 | INFO | Saved 0 new jobs.
+2026-07-15 11:41:18,834 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:42:15 GMT)" executed successfully
+2026-07-15 11:42:15,621 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:43:15 GMT)" (scheduled at 2026-07-15 11:42:15.619134+00:00)
+2026-07-15 11:42:15,621 | INFO | Collecting from The Muse...
+2026-07-15 11:42:16,861 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:42:18,549 | INFO | Collecting from Remotive...
+2026-07-15 11:42:19,079 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:42:19,092 | INFO | Saved 0 new jobs.
+2026-07-15 11:42:19,093 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:43:15 GMT)" executed successfully
+2026-07-15 11:42:46,994 | INFO | Scheduler has been shut down
+2026-07-15 11:42:48,836 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 11:42:49,011 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 11:42:49,011 | INFO | Scheduler started
+2026-07-15 11:43:17,871 | INFO | Scheduler has been shut down
+2026-07-15 11:43:22,022 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 11:43:22,077 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 11:43:22,077 | INFO | Scheduler started
+2026-07-15 11:44:22,037 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:44:22 GMT)" (scheduled at 2026-07-15 11:44:22.022011+00:00)
+2026-07-15 11:44:22,037 | INFO | Collecting from The Muse...
+2026-07-15 11:44:23,255 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:44:26,243 | INFO | Collecting from Remotive...
+2026-07-15 11:44:27,230 | INFO | Saved 0 new jobs.
+2026-07-15 11:44:27,230 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:45:22 GMT)" executed successfully
+2026-07-15 11:45:22,024 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:46:22 GMT)" (scheduled at 2026-07-15 11:45:22.022011+00:00)
+2026-07-15 11:45:22,025 | INFO | Collecting from The Muse...
+2026-07-15 11:45:23,477 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:45:25,776 | INFO | Collecting from Remotive...
+2026-07-15 11:45:26,856 | INFO | Saved 0 new jobs.
+2026-07-15 11:45:26,856 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:46:22 GMT)" executed successfully
+2026-07-15 11:46:22,024 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:47:22 GMT)" (scheduled at 2026-07-15 11:46:22.022011+00:00)
+2026-07-15 11:46:22,025 | INFO | Collecting from The Muse...
+2026-07-15 11:46:22,399 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:46:22,399 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:46:22,858 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:46:22,859 | INFO | Collecting from Remotive...
+2026-07-15 11:46:23,614 | INFO | Saved 0 new jobs.
+2026-07-15 11:46:23,615 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:47:22 GMT)" executed successfully
+2026-07-15 11:47:22,031 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:48:22 GMT)" (scheduled at 2026-07-15 11:47:22.022011+00:00)
+2026-07-15 11:47:22,032 | INFO | Collecting from The Muse...
+2026-07-15 11:47:23,225 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:47:25,323 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:47:25,323 | INFO | Collecting from Remotive...
+2026-07-15 11:47:25,758 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:47:25,765 | INFO | Saved 0 new jobs.
+2026-07-15 11:47:25,765 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:48:22 GMT)" executed successfully
+2026-07-15 11:48:22,026 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:49:22 GMT)" (scheduled at 2026-07-15 11:48:22.022011+00:00)
+2026-07-15 11:48:22,026 | INFO | Collecting from The Muse...
+2026-07-15 11:48:22,632 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:48:22,632 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:48:24,208 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:48:24,209 | INFO | Collecting from Remotive...
+2026-07-15 11:48:24,729 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:48:24,729 | INFO | Saved 0 new jobs.
+2026-07-15 11:48:24,729 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:49:22 GMT)" executed successfully
+2026-07-15 11:49:22,036 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:50:22 GMT)" (scheduled at 2026-07-15 11:49:22.022011+00:00)
+2026-07-15 11:49:22,036 | INFO | Collecting from The Muse...
+2026-07-15 11:49:22,412 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:49:22,412 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:49:22,946 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:49:22,946 | INFO | Collecting from Remotive...
+2026-07-15 11:49:23,964 | INFO | Saved 0 new jobs.
+2026-07-15 11:49:23,964 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:50:22 GMT)" executed successfully
+2026-07-15 11:50:22,032 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:51:22 GMT)" (scheduled at 2026-07-15 11:50:22.022011+00:00)
+2026-07-15 11:50:22,033 | INFO | Collecting from The Muse...
+2026-07-15 11:50:23,369 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:50:26,270 | INFO | Collecting from Remotive...
+2026-07-15 11:50:27,194 | INFO | Saved 10 new jobs.
+2026-07-15 11:50:27,194 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:51:22 GMT)" executed successfully
+2026-07-15 11:51:22,025 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:52:22 GMT)" (scheduled at 2026-07-15 11:51:22.022011+00:00)
+2026-07-15 11:51:22,025 | INFO | Collecting from The Muse...
+2026-07-15 11:51:22,714 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:51:22,714 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:51:24,320 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:51:24,321 | INFO | Collecting from Remotive...
+2026-07-15 11:51:24,791 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:51:24,792 | INFO | Saved 0 new jobs.
+2026-07-15 11:51:24,792 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:52:22 GMT)" executed successfully
+2026-07-15 11:52:22,031 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:53:22 GMT)" (scheduled at 2026-07-15 11:52:22.022011+00:00)
+2026-07-15 11:52:22,032 | INFO | Collecting from The Muse...
+2026-07-15 11:52:22,585 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:52:22,585 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:52:24,574 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:52:24,574 | INFO | Collecting from Remotive...
+2026-07-15 11:52:25,583 | INFO | Saved 0 new jobs.
+2026-07-15 11:52:25,583 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:53:22 GMT)" executed successfully
+2026-07-15 11:53:22,029 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:54:22 GMT)" (scheduled at 2026-07-15 11:53:22.022011+00:00)
+2026-07-15 11:53:22,030 | INFO | Collecting from The Muse...
+2026-07-15 11:53:22,558 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:53:22,558 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:53:23,209 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:53:23,209 | INFO | Collecting from Remotive...
+2026-07-15 11:53:24,251 | INFO | Saved 0 new jobs.
+2026-07-15 11:53:24,251 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:54:22 GMT)" executed successfully
+2026-07-15 11:54:22,031 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:55:22 GMT)" (scheduled at 2026-07-15 11:54:22.022011+00:00)
+2026-07-15 11:54:22,031 | INFO | Collecting from The Muse...
+2026-07-15 11:54:22,809 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:54:22,809 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:54:23,350 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:54:23,350 | INFO | Collecting from Remotive...
+2026-07-15 11:54:23,810 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:54:23,811 | INFO | Saved 0 new jobs.
+2026-07-15 11:54:23,811 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:55:22 GMT)" executed successfully
+2026-07-15 11:55:22,026 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:56:22 GMT)" (scheduled at 2026-07-15 11:55:22.022011+00:00)
+2026-07-15 11:55:22,027 | INFO | Collecting from The Muse...
+2026-07-15 11:55:23,243 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:55:24,178 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:55:24,179 | INFO | Collecting from Remotive...
+2026-07-15 11:55:24,915 | INFO | Saved 0 new jobs.
+2026-07-15 11:55:24,916 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:56:22 GMT)" executed successfully
+2026-07-15 11:56:22,031 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:57:22 GMT)" (scheduled at 2026-07-15 11:56:22.022011+00:00)
+2026-07-15 11:56:22,032 | INFO | Collecting from The Muse...
+2026-07-15 11:56:22,572 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:56:22,572 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:56:25,188 | INFO | Collecting from Remotive...
+2026-07-15 11:56:25,819 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:56:25,827 | INFO | Saved 0 new jobs.
+2026-07-15 11:56:25,827 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:57:22 GMT)" executed successfully
+2026-07-15 11:57:22,028 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:58:22 GMT)" (scheduled at 2026-07-15 11:57:22.022011+00:00)
+2026-07-15 11:57:22,028 | INFO | Collecting from The Muse...
+2026-07-15 11:57:23,413 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:57:25,063 | INFO | Collecting from Remotive...
+2026-07-15 11:57:25,614 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:57:25,627 | INFO | Saved 0 new jobs.
+2026-07-15 11:57:25,627 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:58:22 GMT)" executed successfully
+2026-07-15 11:58:22,025 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:59:22 GMT)" (scheduled at 2026-07-15 11:58:22.022011+00:00)
+2026-07-15 11:58:22,026 | INFO | Collecting from The Muse...
+2026-07-15 11:58:22,915 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:58:25,669 | INFO | Collecting from Remotive...
+2026-07-15 11:58:26,435 | INFO | Saved 0 new jobs.
+2026-07-15 11:58:26,435 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 11:59:22 GMT)" executed successfully
+2026-07-15 11:59:22,031 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:00:22 GMT)" (scheduled at 2026-07-15 11:59:22.022011+00:00)
+2026-07-15 11:59:22,032 | INFO | Collecting from The Muse...
+2026-07-15 11:59:23,196 | INFO | Collecting from ArbeitNow...
+2026-07-15 11:59:23,648 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 11:59:23,648 | INFO | Collecting from Remotive...
+2026-07-15 11:59:25,705 | INFO | Saved 0 new jobs.
+2026-07-15 11:59:25,705 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:00:22 GMT)" executed successfully
+2026-07-15 12:00:22,033 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:01:22 GMT)" (scheduled at 2026-07-15 12:00:22.022011+00:00)
+2026-07-15 12:00:22,034 | INFO | Collecting from The Muse...
+2026-07-15 12:00:23,090 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:00:23,545 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:00:23,545 | INFO | Collecting from Remotive...
+2026-07-15 12:00:23,999 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:00:24,006 | INFO | Saved 0 new jobs.
+2026-07-15 12:00:24,006 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:01:22 GMT)" executed successfully
+2026-07-15 12:01:22,030 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:02:22 GMT)" (scheduled at 2026-07-15 12:01:22.022011+00:00)
+2026-07-15 12:01:22,030 | INFO | Collecting from The Muse...
+2026-07-15 12:01:22,871 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:01:25,365 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:01:25,365 | INFO | Collecting from Remotive...
+2026-07-15 12:01:26,002 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:01:26,009 | INFO | Saved 0 new jobs.
+2026-07-15 12:01:26,009 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:02:22 GMT)" executed successfully
+2026-07-15 12:02:22,031 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:03:22 GMT)" (scheduled at 2026-07-15 12:02:22.022011+00:00)
+2026-07-15 12:02:22,031 | INFO | Collecting from The Muse...
+2026-07-15 12:02:23,206 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:02:23,754 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:02:23,754 | INFO | Collecting from Remotive...
+2026-07-15 12:02:24,852 | INFO | Saved 0 new jobs.
+2026-07-15 12:02:24,852 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:03:22 GMT)" executed successfully
+2026-07-15 12:03:22,026 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:04:22 GMT)" (scheduled at 2026-07-15 12:03:22.022011+00:00)
+2026-07-15 12:03:22,027 | INFO | Collecting from The Muse...
+2026-07-15 12:03:22,677 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:03:22,677 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:03:23,248 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:03:23,248 | INFO | Collecting from Remotive...
+2026-07-15 12:03:23,790 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:03:23,790 | INFO | Saved 0 new jobs.
+2026-07-15 12:03:23,791 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:04:22 GMT)" executed successfully
+2026-07-15 12:04:22,034 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:05:22 GMT)" (scheduled at 2026-07-15 12:04:22.022011+00:00)
+2026-07-15 12:04:22,035 | INFO | Collecting from The Muse...
+2026-07-15 12:04:22,414 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:04:22,414 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:04:23,043 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:04:23,043 | INFO | Collecting from Remotive...
+2026-07-15 12:04:23,495 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:04:23,495 | INFO | Saved 0 new jobs.
+2026-07-15 12:04:23,496 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:05:22 GMT)" executed successfully
+2026-07-15 12:05:22,037 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:06:22 GMT)" (scheduled at 2026-07-15 12:05:22.022011+00:00)
+2026-07-15 12:05:22,038 | INFO | Collecting from The Muse...
+2026-07-15 12:05:23,144 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:05:24,674 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:05:24,674 | INFO | Collecting from Remotive...
+2026-07-15 12:05:25,121 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:05:25,128 | INFO | Saved 0 new jobs.
+2026-07-15 12:05:25,128 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:06:22 GMT)" executed successfully
+2026-07-15 12:06:22,032 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:07:22 GMT)" (scheduled at 2026-07-15 12:06:22.022011+00:00)
+2026-07-15 12:06:22,032 | INFO | Collecting from The Muse...
+2026-07-15 12:06:23,386 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:06:24,126 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:06:24,126 | INFO | Collecting from Remotive...
+2026-07-15 12:06:25,202 | INFO | Saved 0 new jobs.
+2026-07-15 12:06:25,202 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:07:22 GMT)" executed successfully
+2026-07-15 12:07:22,037 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:08:22 GMT)" (scheduled at 2026-07-15 12:07:22.022011+00:00)
+2026-07-15 12:07:22,038 | INFO | Collecting from The Muse...
+2026-07-15 12:07:23,204 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:07:23,734 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:07:23,734 | INFO | Collecting from Remotive...
+2026-07-15 12:07:24,879 | INFO | Saved 0 new jobs.
+2026-07-15 12:07:24,879 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:08:22 GMT)" executed successfully
+2026-07-15 12:08:22,023 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:09:22 GMT)" (scheduled at 2026-07-15 12:08:22.022011+00:00)
+2026-07-15 12:08:22,024 | INFO | Collecting from The Muse...
+2026-07-15 12:08:22,544 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:08:22,544 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:08:22,984 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:08:22,984 | INFO | Collecting from Remotive...
+2026-07-15 12:08:23,508 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:08:23,508 | INFO | Saved 0 new jobs.
+2026-07-15 12:08:23,508 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:09:22 GMT)" executed successfully
+2026-07-15 12:09:22,027 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:10:22 GMT)" (scheduled at 2026-07-15 12:09:22.022011+00:00)
+2026-07-15 12:09:22,027 | INFO | Collecting from The Muse...
+2026-07-15 12:09:22,677 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:09:22,678 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:09:25,605 | INFO | Collecting from Remotive...
+2026-07-15 12:09:27,147 | INFO | Saved 0 new jobs.
+2026-07-15 12:09:27,147 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:10:22 GMT)" executed successfully
+2026-07-15 12:10:22,037 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:11:22 GMT)" (scheduled at 2026-07-15 12:10:22.022011+00:00)
+2026-07-15 12:10:22,038 | INFO | Collecting from The Muse...
+2026-07-15 12:10:23,011 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:10:24,704 | INFO | Collecting from Remotive...
+2026-07-15 12:10:25,448 | INFO | Saved 0 new jobs.
+2026-07-15 12:10:25,449 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:11:22 GMT)" executed successfully
+2026-07-15 12:11:22,038 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:12:22 GMT)" (scheduled at 2026-07-15 12:11:22.022011+00:00)
+2026-07-15 12:11:22,038 | INFO | Collecting from The Muse...
+2026-07-15 12:11:22,667 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:11:22,667 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:11:24,299 | INFO | Collecting from Remotive...
+2026-07-15 12:11:25,064 | INFO | Saved 0 new jobs.
+2026-07-15 12:11:25,064 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:12:22 GMT)" executed successfully
+2026-07-15 12:11:56,633 | INFO | Scheduler has been shut down
+2026-07-15 12:11:57,986 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 12:11:58,041 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 12:11:58,041 | INFO | Scheduler started
+2026-07-15 12:12:26,337 | INFO | Scheduler has been shut down
+2026-07-15 12:12:29,607 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 12:12:29,659 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 12:12:29,659 | INFO | Scheduler started
+2026-07-15 12:13:29,618 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:13:29 GMT)" (scheduled at 2026-07-15 12:13:29.607252+00:00)
+2026-07-15 12:13:29,619 | INFO | Collecting from The Muse...
+2026-07-15 12:13:30,877 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:13:36,651 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:13:36,651 | INFO | Collecting from Remotive...
+2026-07-15 12:13:37,966 | INFO | Saved 0 new jobs.
+2026-07-15 12:13:37,967 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:14:29 GMT)" executed successfully
+2026-07-15 12:14:29,621 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:15:29 GMT)" (scheduled at 2026-07-15 12:14:29.607252+00:00)
+2026-07-15 12:14:29,621 | INFO | Collecting from The Muse...
+2026-07-15 12:14:33,378 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:14:38,995 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:14:38,996 | INFO | Collecting from Remotive...
+2026-07-15 12:14:39,989 | INFO | Saved 0 new jobs.
+2026-07-15 12:14:39,989 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:15:29 GMT)" executed successfully
+2026-07-15 12:15:29,613 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:16:29 GMT)" (scheduled at 2026-07-15 12:15:29.607252+00:00)
+2026-07-15 12:15:29,614 | INFO | Collecting from The Muse...
+2026-07-15 12:15:30,552 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:15:32,943 | INFO | Collecting from Remotive...
+2026-07-15 12:15:34,025 | INFO | Saved 0 new jobs.
+2026-07-15 12:15:34,026 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:16:29 GMT)" executed successfully
+2026-07-15 12:16:29,615 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:17:29 GMT)" (scheduled at 2026-07-15 12:16:29.607252+00:00)
+2026-07-15 12:16:29,616 | INFO | Collecting from The Muse...
+2026-07-15 12:16:33,227 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:16:35,823 | INFO | Collecting from Remotive...
+2026-07-15 12:16:36,825 | INFO | Saved 0 new jobs.
+2026-07-15 12:16:36,825 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:17:29 GMT)" executed successfully
+2026-07-15 12:17:29,609 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:18:29 GMT)" (scheduled at 2026-07-15 12:17:29.607252+00:00)
+2026-07-15 12:17:29,609 | INFO | Collecting from The Muse...
+2026-07-15 12:17:30,664 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:17:38,638 | INFO | Collecting from Remotive...
+2026-07-15 12:17:39,680 | INFO | Saved 0 new jobs.
+2026-07-15 12:17:39,680 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:18:29 GMT)" executed successfully
+2026-07-15 12:18:29,618 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:19:29 GMT)" (scheduled at 2026-07-15 12:18:29.607252+00:00)
+2026-07-15 12:18:29,618 | INFO | Collecting from The Muse...
+2026-07-15 12:18:35,489 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:18:37,668 | INFO | Collecting from Remotive...
+2026-07-15 12:18:43,201 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:18:43,214 | INFO | Saved 0 new jobs.
+2026-07-15 12:18:43,214 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:19:29 GMT)" executed successfully
+2026-07-15 12:19:29,621 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:20:29 GMT)" (scheduled at 2026-07-15 12:19:29.607252+00:00)
+2026-07-15 12:19:29,622 | INFO | Collecting from The Muse...
+2026-07-15 12:19:35,201 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:19:35,201 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:19:43,321 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:19:43,322 | INFO | Collecting from Remotive...
+2026-07-15 12:19:46,568 | INFO | Saved 0 new jobs.
+2026-07-15 12:19:46,568 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:20:29 GMT)" executed successfully
+2026-07-15 12:20:29,618 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:21:29 GMT)" (scheduled at 2026-07-15 12:20:29.607252+00:00)
+2026-07-15 12:20:29,619 | INFO | Collecting from The Muse...
+2026-07-15 12:20:30,948 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:20:32,802 | INFO | Collecting from Remotive...
+2026-07-15 12:20:38,828 | INFO | Saved 0 new jobs.
+2026-07-15 12:20:38,828 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:21:29 GMT)" executed successfully
+2026-07-15 12:21:29,620 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:22:29 GMT)" (scheduled at 2026-07-15 12:21:29.607252+00:00)
+2026-07-15 12:21:29,621 | INFO | Collecting from The Muse...
+2026-07-15 12:21:33,210 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:21:39,195 | INFO | Collecting from Remotive...
+2026-07-15 12:21:42,466 | INFO | Saved 0 new jobs.
+2026-07-15 12:21:42,466 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:22:29 GMT)" executed successfully
+2026-07-15 12:22:29,610 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:23:29 GMT)" (scheduled at 2026-07-15 12:22:29.607252+00:00)
+2026-07-15 12:22:29,611 | INFO | Collecting from The Muse...
+2026-07-15 12:22:33,402 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:22:37,980 | INFO | Collecting from Remotive...
+2026-07-15 12:22:43,638 | INFO | Saved 0 new jobs.
+2026-07-15 12:22:43,638 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:23:29 GMT)" executed successfully
+2026-07-15 12:23:14,149 | INFO | Scheduler has been shut down
+2026-07-15 12:23:18,706 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 12:23:18,868 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 12:23:18,868 | INFO | Scheduler started
+2026-07-15 12:24:18,715 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:24:18 GMT)" (scheduled at 2026-07-15 12:24:18.706895+00:00)
+2026-07-15 12:24:18,716 | INFO | Collecting from The Muse...
+2026-07-15 12:24:24,128 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:24:24,128 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:24:30,446 | INFO | Collecting from Remotive...
+2026-07-15 12:24:31,732 | INFO | Saved 0 new jobs.
+2026-07-15 12:24:31,732 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:25:18 GMT)" executed successfully
+2026-07-15 12:25:18,707 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:26:18 GMT)" (scheduled at 2026-07-15 12:25:18.706895+00:00)
+2026-07-15 12:25:18,707 | INFO | Collecting from The Muse...
+2026-07-15 12:25:19,946 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:25:25,690 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:25:25,690 | INFO | Collecting from Remotive...
+2026-07-15 12:25:26,410 | INFO | Saved 0 new jobs.
+2026-07-15 12:25:26,410 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:26:18 GMT)" executed successfully
+2026-07-15 12:26:18,715 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:27:18 GMT)" (scheduled at 2026-07-15 12:26:18.706895+00:00)
+2026-07-15 12:26:18,716 | INFO | Collecting from The Muse...
+2026-07-15 12:26:20,012 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:26:27,082 | INFO | Collecting from Remotive...
+2026-07-15 12:26:32,642 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:26:32,657 | INFO | Saved 0 new jobs.
+2026-07-15 12:26:32,657 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:27:18 GMT)" executed successfully
+2026-07-15 12:27:18,710 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:28:18 GMT)" (scheduled at 2026-07-15 12:27:18.706895+00:00)
+2026-07-15 12:27:18,711 | INFO | Collecting from The Muse...
+2026-07-15 12:27:22,297 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:27:24,155 | INFO | Collecting from Remotive...
+2026-07-15 12:27:24,902 | INFO | Saved 0 new jobs.
+2026-07-15 12:27:24,902 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:28:18 GMT)" executed successfully
+2026-07-15 12:28:18,708 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:29:18 GMT)" (scheduled at 2026-07-15 12:28:18.706895+00:00)
+2026-07-15 12:28:18,709 | INFO | Collecting from The Muse...
+2026-07-15 12:28:22,526 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:28:31,861 | INFO | Collecting from Remotive...
+2026-07-15 12:28:37,331 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:28:37,345 | INFO | Saved 0 new jobs.
+2026-07-15 12:28:37,346 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:29:18 GMT)" executed successfully
+2026-07-15 12:29:18,722 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:30:18 GMT)" (scheduled at 2026-07-15 12:29:18.706895+00:00)
+2026-07-15 12:29:18,722 | INFO | Collecting from The Muse...
+2026-07-15 12:29:24,241 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:29:24,241 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:29:29,106 | INFO | Collecting from Remotive...
+2026-07-15 12:29:32,782 | INFO | Saved 0 new jobs.
+2026-07-15 12:29:32,782 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:30:18 GMT)" executed successfully
+2026-07-15 12:30:18,722 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:31:18 GMT)" (scheduled at 2026-07-15 12:30:18.706895+00:00)
+2026-07-15 12:30:18,723 | INFO | Collecting from The Muse...
+2026-07-15 12:30:22,642 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:30:31,033 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:30:31,033 | INFO | Collecting from Remotive...
+2026-07-15 12:30:37,130 | INFO | Saved 0 new jobs.
+2026-07-15 12:30:37,130 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:31:18 GMT)" executed successfully
+2026-07-15 12:31:18,722 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:32:18 GMT)" (scheduled at 2026-07-15 12:31:18.706895+00:00)
+2026-07-15 12:31:18,722 | INFO | Collecting from The Muse...
+2026-07-15 12:31:22,630 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:31:28,086 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:31:28,086 | INFO | Collecting from Remotive...
+2026-07-15 12:31:29,120 | INFO | Saved 0 new jobs.
+2026-07-15 12:31:29,120 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:32:18 GMT)" executed successfully
+2026-07-15 12:32:18,708 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:33:18 GMT)" (scheduled at 2026-07-15 12:32:18.706895+00:00)
+2026-07-15 12:32:18,709 | INFO | Collecting from The Muse...
+2026-07-15 12:32:22,162 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:32:27,514 | INFO | Collecting from Remotive...
+2026-07-15 12:32:28,533 | INFO | Saved 0 new jobs.
+2026-07-15 12:32:28,533 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:33:18 GMT)" executed successfully
+2026-07-15 12:33:18,722 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:34:18 GMT)" (scheduled at 2026-07-15 12:33:18.706895+00:00)
+2026-07-15 12:33:18,722 | INFO | Collecting from The Muse...
+2026-07-15 12:33:19,916 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:33:25,334 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:33:25,334 | INFO | Collecting from Remotive...
+2026-07-15 12:33:26,316 | INFO | Saved 0 new jobs.
+2026-07-15 12:33:26,316 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:34:18 GMT)" executed successfully
+2026-07-15 12:34:18,714 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:35:18 GMT)" (scheduled at 2026-07-15 12:34:18.706895+00:00)
+2026-07-15 12:34:18,714 | INFO | Collecting from The Muse...
+2026-07-15 12:34:19,912 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:34:24,601 | INFO | Collecting from Remotive...
+2026-07-15 12:34:30,025 | ERROR | Remotive failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:34:30,038 | INFO | Saved 0 new jobs.
+2026-07-15 12:34:30,038 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:35:18 GMT)" executed successfully
+2026-07-15 12:35:18,713 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:36:18 GMT)" (scheduled at 2026-07-15 12:35:18.706895+00:00)
+2026-07-15 12:35:18,713 | INFO | Collecting from The Muse...
+2026-07-15 12:35:20,025 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:35:27,970 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:35:27,970 | INFO | Collecting from Remotive...
+2026-07-15 12:35:31,359 | INFO | Saved 0 new jobs.
+2026-07-15 12:35:31,360 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:36:18 GMT)" executed successfully
+2026-07-15 12:36:18,719 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:37:18 GMT)" (scheduled at 2026-07-15 12:36:18.706895+00:00)
+2026-07-15 12:36:18,719 | INFO | Collecting from The Muse...
+2026-07-15 12:36:22,202 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:36:24,576 | INFO | Collecting from Remotive...
+2026-07-15 12:36:25,374 | INFO | Saved 0 new jobs.
+2026-07-15 12:36:25,374 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:37:18 GMT)" executed successfully
+2026-07-15 12:37:18,718 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:38:18 GMT)" (scheduled at 2026-07-15 12:37:18.706895+00:00)
+2026-07-15 12:37:18,718 | INFO | Collecting from The Muse...
+2026-07-15 12:37:24,606 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:37:32,431 | INFO | Collecting from Remotive...
+2026-07-15 12:37:38,431 | INFO | Saved 0 new jobs.
+2026-07-15 12:37:38,431 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:38:18 GMT)" executed successfully
+2026-07-15 12:38:18,722 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:39:18 GMT)" (scheduled at 2026-07-15 12:38:18.706895+00:00)
+2026-07-15 12:38:18,723 | INFO | Collecting from The Muse...
+2026-07-15 12:38:24,447 | ERROR | The Muse failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:38:24,447 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:38:26,660 | INFO | Collecting from Remotive...
+2026-07-15 12:38:27,365 | INFO | Saved 0 new jobs.
+2026-07-15 12:38:27,366 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:39:18 GMT)" executed successfully
+2026-07-15 12:39:18,718 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:40:18 GMT)" (scheduled at 2026-07-15 12:39:18.706895+00:00)
+2026-07-15 12:39:18,718 | INFO | Collecting from The Muse...
+2026-07-15 12:39:19,947 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:39:26,088 | INFO | Collecting from Remotive...
+2026-07-15 12:39:29,643 | INFO | Saved 0 new jobs.
+2026-07-15 12:39:29,644 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:40:18 GMT)" executed successfully
+2026-07-15 12:40:18,715 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:41:18 GMT)" (scheduled at 2026-07-15 12:40:18.706895+00:00)
+2026-07-15 12:40:18,715 | INFO | Collecting from The Muse...
+2026-07-15 12:40:20,013 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:40:27,253 | INFO | Collecting from Remotive...
+2026-07-15 12:40:28,261 | INFO | Saved 0 new jobs.
+2026-07-15 12:40:28,261 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:41:18 GMT)" executed successfully
+2026-07-15 12:41:18,709 | INFO | Running job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:42:18 GMT)" (scheduled at 2026-07-15 12:41:18.706895+00:00)
+2026-07-15 12:41:18,709 | INFO | Collecting from The Muse...
+2026-07-15 12:41:19,919 | INFO | Collecting from ArbeitNow...
+2026-07-15 12:41:25,463 | ERROR | ArbeitNow failed: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2026-07-15 12:41:25,463 | INFO | Collecting from Remotive...
+2026-07-15 12:41:29,211 | INFO | Saved 0 new jobs.
+2026-07-15 12:41:29,211 | INFO | Job "collect_jobs (trigger: interval[0:01:00], next run at: 2026-07-15 12:42:18 GMT)" executed successfully
+2026-07-15 12:42:04,469 | INFO | Scheduler has been shut down
+2026-07-15 12:42:05,794 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 12:42:05,978 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 12:42:05,978 | INFO | Scheduler started
+2026-07-15 12:43:31,738 | INFO | Scheduler has been shut down
+2026-07-15 12:43:33,060 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 12:43:33,166 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 12:43:33,167 | INFO | Scheduler started
+2026-07-15 12:45:45,499 | INFO | Scheduler has been shut down
+2026-07-15 12:45:46,995 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 12:45:47,048 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 12:45:47,049 | INFO | Scheduler started
+2026-07-15 13:25:23,594 | INFO | Scheduler has been shut down
+2026-07-15 13:25:38,127 | INFO | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-07-15 13:25:38,187 | INFO | Added job "collect_jobs" to job store "default"
+2026-07-15 13:25:38,188 | INFO | Scheduler started

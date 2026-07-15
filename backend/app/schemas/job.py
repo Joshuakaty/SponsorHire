@@ -8,7 +8,8 @@ class JobResponse(BaseModel):
     location: str
     salary: str | None = None
     sponsorship: bool
-    apply_url: str |None = None
+    apply_url: str | None = None
+    slug: str | None = None
 
     class Config:
         from_attributes = True

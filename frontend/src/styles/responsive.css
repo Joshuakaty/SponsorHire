@@ -1,0 +1,256 @@
+/* ---------- Tablets ---------- */
+
+@media (max-width: 992px) {
+
+  .container {
+    padding: 0 18px;
+  }
+
+}
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 768px) {
+
+  /* Navbar */
+
+  header nav {
+    width: 100%;
+    justify-content: center !important;
+    margin-top: 12px;
+  }
+
+  /* Hero */
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .section h1 {
+    font-size: 2.3rem !important;
+  }
+
+  .section p {
+    font-size: 16px !important;
+  }
+
+  .card input {
+    width: 100%;
+  }
+
+  .card button {
+    width: 100%;
+  }
+
+  /* Job Cards */
+
+  .card {
+    padding: 20px !important;
+  }
+
+  .card a.btn {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  /* Footer */
+
+  footer .container>div:first-child {
+    flex-direction: column;
+    gap: 30px !important;
+  }
+
+}
+
+/* ---------- Small Phones ---------- */
+
+@media (max-width: 480px) {
+
+  .container {
+    padding: 0 14px;
+  }
+
+  .section h1 {
+    font-size: 2rem !important;
+  }
+
+  .badge {
+    font-size: 12px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+}
+
+/* ---------- Job Details ---------- */
+
+@media (max-width: 768px) {
+
+  .job-details-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(280px,360px);
+    gap:30px;
+}
+
+  /* Disable sticky card on phones */
+  .job-sidebar {
+    position: static !important;
+    top: auto !important;
+  }
+
+  /* Reduce padding */
+  .job-main-card,
+  .job-sidebar-card {
+    padding: 22px !important;
+  }
+
+  /* Better title */
+  .job-title {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+    word-break: break-word;
+  }
+
+  /* Company/logo layout */
+  .job-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}
+/* ===========================
+   Job Details Responsive
+=========================== */
+
+.job-details-grid{
+    display:grid;
+    grid-template-columns:2fr 360px;
+    gap:30px;
+}
+
+.job-main-card{
+    padding:36px;
+}
+
+.job-sidebar{
+    position:relative;
+}
+
+.job-sidebar-card{
+    position:sticky;
+    top:95px;
+    padding:28px;
+}
+
+.job-header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.job-logo{
+    width:84px;
+    height:84px;
+    border-radius:20px;
+    background:#EEF2FF;
+    color:var(--primary);
+    display:grid;
+    place-items:center;
+    font-size:32px;
+    font-weight:800;
+    flex-shrink:0;
+}
+
+.job-title{
+    font-size:clamp(2rem,4vw,3rem);
+    line-height:1.15;
+    margin-bottom:10px;
+}
+
+.job-info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-top:40px;
+}
+
+@media (max-width:900px){
+
+    .job-details-grid{
+        grid-template-columns:1fr;
+    }
+
+    .job-sidebar{
+        width:100%;
+        min-width:0;
+    }
+
+    .job-sidebar-card{
+        position:static;
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        box-sizing:border-box;
+    }
+
+}
+
+@media (max-width:600px){
+
+    .job-main-card,
+    .job-sidebar-card{
+        padding:22px;
+    }
+
+    .job-title{
+        font-size:2rem;
+    }
+
+    .job-info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .job-logo{
+        width:70px;
+        height:70px;
+        font-size:26px;
+    }
+
+}
+@media (max-width: 600px) {
+
+  .job-main-card,
+  .job-sidebar-card{
+      padding:18px;
+  }
+
+  .job-title{
+      font-size:1.9rem;
+      line-height:1.2;
+  }
+
+  .job-details-grid{
+      gap:18px;
+  }
+
+  .container{
+      padding-left:12px;
+      padding-right:12px;
+  }
+
+}   
+@media (max-width: 600px) {
+
+  .job-sidebar-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .job-sidebar-card * {
+    min-width: 0;
+  }
+
+}
