@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import inspect, text
-
+from app.models.job import Job
 from app.api.jobs import router as jobs_router
 from app.api.job_details import router as job_details_router
 from app.database.database import Base, SessionLocal, engine
