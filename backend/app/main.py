@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import inspect, text
-from app.models.job import Job
+
 from app.api.jobs import router as jobs_router
 from app.api.job_details import router as job_details_router
 from app.database.database import Base, SessionLocal, engine
-from app.scheduler import scheduler
+from app.models.job import Job
+from app.scheduler import scheduler, collect_jobs
 
 app = FastAPI(
     title="SponsorHire API",
@@ -14,7 +15,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # tighten this later for production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -26,7 +27,6 @@ def update_database():
     try:
         inspector = inspect(engine)
 
-        # Skip migration if the table doesn't exist yet
         if not inspector.has_table("jobs"):
             print("jobs table does not exist yet. Skipping migration.")
             return
@@ -51,16 +51,16 @@ def update_database():
         )
         db.commit()
 
-        print("Database updated.")
+        print("✅ Database updated.")
 
     finally:
         db.close()
 
 
-# Create all tables first
+# Create all database tables
 Base.metadata.create_all(bind=engine)
 
-# Then run migrations
+# Run database updates
 update_database()
 
 
@@ -71,14 +71,16 @@ def root():
 
 @app.on_event("startup")
 def startup_event():
-    scheduler.start()
-    print("Job scheduler started")
+    print("🚀 Running first job collection...")
+    collect_jobs()          # Collect jobs immediately
+    scheduler.start()       # Continue collecting every 6 hours
+    print("✅ Job scheduler started")
 
 
 @app.on_event("shutdown")
 def shutdown_event():
     scheduler.shutdown()
-    print("Job scheduler stopped")
+    print("🛑 Job scheduler stopped")
 
 
 app.include_router(jobs_router)
